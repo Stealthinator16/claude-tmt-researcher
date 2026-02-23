@@ -1,120 +1,59 @@
 # TMT Law Research Pipeline
 
-A multi-agent pipeline for generating novel, legally accurate TMT (Technology, Media, Telecommunications) law article ideas focused on India.
+A Claude Code-powered pipeline for generating novel, legally accurate TMT (Technology, Media, Telecommunications) law article ideas focused on India.
 
 ## Quality Philosophy
 
 **Depth >>> Surface-level insight**
 **Novelty >>> Quantity**
 
-This pipeline aims for Gautam Bhatia-level legal scholarship. Most ideas will be REJECTED - that's by design. Only truly original, well-researched ideas pass through.
+The pipeline aims for Gautam Bhatia-level legal scholarship. Most ideas are REJECTED — that's by design. Only truly original, well-researched ideas pass through.
 
-## Features
+## How It Works
 
-- **Multi-agent architecture**: Specialized agents for brainstorming, novelty checking, research, validation, and review
-- **Exhaustive novelty checking**: Searches Indian law blogs, law firm publications, academic sources
-- **Citation-focused research**: Every claim backed by primary sources
-- **Legal accuracy validation**: Verifies all citations and legal interpretations
-- **Notion integration**: Saves approved ideas directly to Notion database
+Open Claude Code in this project directory. The `CLAUDE.md` file is loaded automatically and defines the full pipeline:
+
+```
+Research TMT article ideas on [your topic]
+```
+
+Claude runs a multi-stage pipeline with specialized sub-agents:
+
+1. **Brainstorm** — Generate 5-7 topic hypotheses
+2. **Novelty Check** — Search Indian law blogs, law firms, academic sources — REJECT if already covered
+3. **Deep Research** — Gather primary sources, build citation base
+4. **Validation** — Verify all citations and legal accuracy
+5. **Argument Building** — Construct thesis, step-by-step argument, counterarguments
+6. **Final Review** — Apply the "Bhatia bar" — is this publishable scholarship?
+
+Approved ideas are saved to `output/approved/`. Rejected ideas (with all research preserved) go to `output/rejected/`.
+
+## Results
+
+Across 6 sessions (Feb 2026): 52 ideas brainstormed, 25 approved, average quality score 4.04/5. See `output/session-log.md` for the full decision guide.
+
+## Project Structure
+
+```
+claude-tmt-researcher/
+├── CLAUDE.md                           # Pipeline instructions (auto-loaded by Claude Code)
+├── src/tmt_researcher/config/prompts/  # Agent prompt templates
+│   ├── brainstormer.md
+│   ├── novelty_checker.md
+│   ├── researcher.md
+│   ├── validator.md
+│   ├── argument_architect.md
+│   ├── argument_validator.md
+│   └── reviewer.md
+└── output/                             # Research output (gitignored)
+    ├── approved/                       # Passed all stages
+    ├── rejected/                       # Failed with research preserved
+    └── session-log.md                  # Decision guide for all articles
+```
 
 ## Requirements
 
-- Claude Max subscription (uses Claude Code CLI - no API key needed)
-- Python 3.11+
-- Notion integration token (for output)
-
-## Installation
-
-```bash
-# Clone the repository
-cd claude-tmt-researcher
-
-# Install dependencies
-pip install -e .
-```
-
-## Setup
-
-### 1. Notion Database
-
-First, set up your Notion database:
-
-```bash
-# Set your Notion API key
-export TMT_NOTION_API_KEY=secret_...
-
-# Create the database under a specific page
-python -m tmt_researcher --setup-notion --parent-page-id <YOUR_PAGE_ID>
-```
-
-Then add the database ID to your `.env` file.
-
-### 2. Configure Environment
-
-Copy `.env.example` to `.env` and fill in your Notion credentials:
-
-```bash
-cp .env.example .env
-# Edit .env with your values
-```
-
-## Usage
-
-### Interactive Mode (Recommended)
-
-Just open Claude Code in this project directory and ask:
-
-```
-Research novel TMT article ideas on data protection compliance in India
-```
-
-Claude will run the full pipeline, spawning specialized agents for each step.
-
-### CLI Mode
-
-```bash
-# Basic usage
-python -m tmt_researcher "data protection challenges"
-
-# With focus area
-python -m tmt_researcher --topic "AI regulation" --focus technology
-
-# Multiple focus areas
-python -m tmt_researcher -t "platform liability" -f technology -f media
-```
-
-## Pipeline Stages
-
-1. **Brainstorm**: Generate 5-7 topic hypotheses
-2. **Novelty Check**: Search existing literature - REJECT if already covered
-3. **Deep Research**: Gather primary sources, build citation base
-4. **Validation**: Verify all citations and legal accuracy
-5. **Final Review**: Apply the "Bhatia bar" - is this publishable scholarship?
-6. **Output**: Save approved ideas to Notion
-
-## Output Format
-
-Each approved idea includes:
-
-- **Title**: Specific, compelling headline
-- **Thesis**: Core argument in 2-3 sentences
-- **Supporting Points**: Each with citations
-- **Novel Contribution**: What makes this new, with evidence
-- **Key Statutes/Cases**: Relevant legal provisions
-- **Full Bibliography**: All sources with URLs
-
-## Key Sources
-
-### Primary Sources
-- India Code (indiacode.nic.in)
-- TRAI (trai.gov.in)
-- MeitY (meity.gov.in)
-- Indian Kanoon (indiankanoon.org)
-
-### For Novelty Check
-- IndConLawPhil, SpicyIP, Bar & Bench, LiveLaw
-- Law firm blogs: Trilegal, CAM, AZB, Khaitan, etc.
-- SSRN, Google Scholar
+- [Claude Code](https://claude.ai/code) (uses Claude Max subscription — no API key needed)
 
 ## License
 
