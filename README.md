@@ -36,8 +36,8 @@ Across 6 sessions (Feb 2026): 52 ideas brainstormed, 25 approved, average qualit
 
 ```
 claude-tmt-researcher/
-├── CLAUDE.md                           # Pipeline instructions (auto-loaded by Claude Code)
-├── src/tmt_researcher/config/prompts/  # Agent prompt templates
+├── CLAUDE.md              # Pipeline instructions (auto-loaded by Claude Code)
+├── prompts/               # Agent prompt templates
 │   ├── brainstormer.md
 │   ├── novelty_checker.md
 │   ├── researcher.md
